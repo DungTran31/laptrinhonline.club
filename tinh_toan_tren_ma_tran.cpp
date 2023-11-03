@@ -16,26 +16,45 @@ void runtime(){
 }
 
 void sol() {
-    string s;
-   	cin >> s;
-   	int res = 1; // Khởi tạo biến res để lưu độ dài của xâu đối xứng dài nhất, ban đầu là 1 vì một ký tự luôn là đối xứng.
-    s = '0' + s; // Thêm một ký tự 0 vào đầu xâu S để đảm bảo không bị lỗi khi truy cập phần tử ở vị trí -1.
-    int j, k;
-    for (int i = 1; i <= s.size();) {
-        j = i, k = i;
-        // Tìm xâu đối xứng tại vị trí i.
-        while (k < s.size() && s[k] == s[k + 1]) {
-            k++;
+    int n, m; cin >> n >> m;
+    int i, j, a[n][m];
+    for (i = 0; i < n; i++){
+        for (j = 0; j < m; j++){
+            cin >> a[i][j];
         }
-        i = k + 1;
-        // Mở rộng xâu đối xứng tại vị trí i (nếu có).
-        while (k < s.size() && s[k + 1] == s[j - 1]) {
-            j--;
-            k++;
-        }
-        res = max(res, k - j + 1); // Cập nhật res nếu xâu mới tìm thấy là đối xứng và dài hơn.
     }
-	cout << res;
+    for (i = 0; i < n; i++){
+        int sum = 0;
+        for (j = 0; j < m; j++){
+            sum += a[i][j];
+        }
+        cout << sum << " ";
+    }
+    cout << endl;
+    for (j = 0; j < m; j++) {
+        int maxCol = a[0][j];
+        for (i = 1; i < n; i++) {
+            maxCol = max(maxCol, a[i][j]);
+        }
+        cout << maxCol << " ";
+    }
+    cout << endl;
+    int count = 0;
+    int sum = 0;
+    for (i = 1; i < n; i += 2) {
+        for (j = 0; j < m; j += 2) {
+            if (a[i][j] % 3 == 0) {
+                sum += a[i][j];
+                count++;
+            }
+        }
+    }
+    if(count > 0) {
+        double avr = (double)sum / count;
+        cout << setprecision(3) << fixed << avr;
+    } else {
+        cout << "khong co so thoa man";
+    }
 }
 
 main(){

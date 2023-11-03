@@ -16,26 +16,29 @@ void runtime(){
 }
 
 void sol() {
-    string s;
-   	cin >> s;
-   	int res = 1; // Khởi tạo biến res để lưu độ dài của xâu đối xứng dài nhất, ban đầu là 1 vì một ký tự luôn là đối xứng.
-    s = '0' + s; // Thêm một ký tự 0 vào đầu xâu S để đảm bảo không bị lỗi khi truy cập phần tử ở vị trí -1.
-    int j, k;
-    for (int i = 1; i <= s.size();) {
-        j = i, k = i;
-        // Tìm xâu đối xứng tại vị trí i.
-        while (k < s.size() && s[k] == s[k + 1]) {
-            k++;
-        }
-        i = k + 1;
-        // Mở rộng xâu đối xứng tại vị trí i (nếu có).
-        while (k < s.size() && s[k + 1] == s[j - 1]) {
-            j--;
-            k++;
-        }
-        res = max(res, k - j + 1); // Cập nhật res nếu xâu mới tìm thấy là đối xứng và dài hơn.
+    int n; cin >> n;
+    vector<int> a(n);
+    vector<int> b;
+    vector<int> c;
+    vector<int> d;
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+        if(a[i]%3==0) b.push_back(a[i]);
+        else if(a[i]%3==1) c.push_back(a[i]);
+        else d.push_back(a[i]);
     }
-	cout << res;
+    sort(b.begin(), b.end());
+    sort(c.begin(), c.end());
+    sort(d.begin(), d.end());
+    for (int i = 0; i < b.size(); i++) {
+        cout << b[i] << " ";
+    }
+    for (int i = 0; i < c.size(); i++) {
+        cout << c[i] << " ";
+    }
+    for (int i = 0; i < d.size(); i++) {
+        cout << d[i] << " ";
+    }
 }
 
 main(){

@@ -14,28 +14,34 @@ void runtime(){
         fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
+bool isPerfectSquare(string s) {
+    int n = s.length();
+    if (n % 2 == 1){
+        return false;
+    }
+    n/=2;
+    string l = s.substr(0, n);
+    string r = s.substr(n);
+    if (l == r) return true;
+    else return false;
+    
+}
 
 void sol() {
-    string s;
-   	cin >> s;
-   	int res = 1; // Khởi tạo biến res để lưu độ dài của xâu đối xứng dài nhất, ban đầu là 1 vì một ký tự luôn là đối xứng.
-    s = '0' + s; // Thêm một ký tự 0 vào đầu xâu S để đảm bảo không bị lỗi khi truy cập phần tử ở vị trí -1.
-    int j, k;
-    for (int i = 1; i <= s.size();) {
-        j = i, k = i;
-        // Tìm xâu đối xứng tại vị trí i.
-        while (k < s.size() && s[k] == s[k + 1]) {
-            k++;
+    int t;
+    cin >> t; // Đọc số lượng test case t.
+
+    while (t--) {
+        string s;
+        cin >> s; // Đọc chuỗi từ input.
+
+        if (isPerfectSquare(s)) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
         }
-        i = k + 1;
-        // Mở rộng xâu đối xứng tại vị trí i (nếu có).
-        while (k < s.size() && s[k + 1] == s[j - 1]) {
-            j--;
-            k++;
-        }
-        res = max(res, k - j + 1); // Cập nhật res nếu xâu mới tìm thấy là đối xứng và dài hơn.
     }
-	cout << res;
+
 }
 
 main(){

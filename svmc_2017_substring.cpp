@@ -15,27 +15,45 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    string s;
-   	cin >> s;
-   	int res = 1; // Khởi tạo biến res để lưu độ dài của xâu đối xứng dài nhất, ban đầu là 1 vì một ký tự luôn là đối xứng.
-    s = '0' + s; // Thêm một ký tự 0 vào đầu xâu S để đảm bảo không bị lỗi khi truy cập phần tử ở vị trí -1.
-    int j, k;
-    for (int i = 1; i <= s.size();) {
-        j = i, k = i;
-        // Tìm xâu đối xứng tại vị trí i.
-        while (k < s.size() && s[k] == s[k + 1]) {
-            k++;
+bool isMirrorString(string str) {
+    int n = str.length();
+    for (int i = 0; i < n / 2; ++i) {
+        if (str[i] != str[n - i - 1]) {
+            return false;
         }
-        i = k + 1;
-        // Mở rộng xâu đối xứng tại vị trí i (nếu có).
-        while (k < s.size() && s[k + 1] == s[j - 1]) {
-            j--;
-            k++;
-        }
-        res = max(res, k - j + 1); // Cập nhật res nếu xâu mới tìm thấy là đối xứng và dài hơn.
     }
-	cout << res;
+    return true;
+}
+
+void sol() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        string str;
+        cin >> str;
+
+        int n = str.length();
+        int maxLen = 0;
+        int cnt = 0;
+
+        for (int i = 0; i < n; ++i) {
+            for (int j = i; j < n; ++j) {
+                string sub = str.substr(i, j - i + 1);
+                if (isMirrorString(sub)) {
+                    int subLen = j - i + 1;
+                    if (subLen > maxLen) {
+                        maxLen = subLen;
+                        cnt = 1;
+                    } else if (subLen == maxLen) {
+                        cnt++;
+                    }
+                }
+            }
+        }
+
+        cout << maxLen << " " << cnt << endl;
+    }
 }
 
 main(){
