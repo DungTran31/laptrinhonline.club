@@ -14,27 +14,26 @@ void runtime(){
         fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
+int gcd(int a, int b) { 
+    if (a == 0) return b;
+    return gcd(b % a, a);
+}
 
+int lcm(int a, int b) { 
+    return a * b / gcd(a, b);
+}
+int solve(int n, int a, int b) {
+    return n / a + n / b - n / lcm(a, b);
+}
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
+    int t; cin >> t;
+    while (t--) {
+        int m, n, a, b; 
+        cin >> m >> n >> a >> b;
+        int res = solve(n, a, b) - solve(m - 1, b, a);
+        cout << res << endl;
     }
+    
 }
 
 main(){

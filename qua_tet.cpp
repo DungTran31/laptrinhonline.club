@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 #define endl "\n"
-#define int long
-#define long long long
 const int MOD = (int)1e9 + 7;
 const int limit = 1000001;
 using namespace std;
@@ -16,25 +14,23 @@ void runtime(){
 }
 
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(m);
+    for (int i = 0; i < m; i++) {
+        cin >> a[i];
     }
+    sort(a.begin(), a.end());
+    int minDiff = a[n - 1] - a[0];
+
+    for (int i = 1; i + n - 1 < m; i++) {
+        int currentDiff = a[i + n - 1] - a[i];
+        if (currentDiff < minDiff) {
+            minDiff = currentDiff;
+        }
+    }
+
+    cout << minDiff << endl;
 }
 
 main(){

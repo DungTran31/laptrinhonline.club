@@ -16,24 +16,15 @@ void runtime(){
 }
 
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
+    int t;
+    cin >> t;
+
+    while (t--){
+        int a, b;
+        cin >> a >> b;
+        // Tính số lượng ngọc lục bảo tối đa có thể kiếm được
+        int maxGems = min(min(a, b), (a + b) / 3);
+        cout << maxGems << endl;
     }
 }
 

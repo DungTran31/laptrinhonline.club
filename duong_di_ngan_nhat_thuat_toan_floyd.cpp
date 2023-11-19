@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 #define endl "\n"
-#define int long
-#define long long long
+using ll = long long;
+const int maxn = 100001;
 const int MOD = (int)1e9 + 7;
 const int limit = 1000001;
 using namespace std;
@@ -15,25 +15,60 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
+int n, m, q;
+vector<pair<int, int>> adj[maxn];
+
+const int INF = 1e9;
+int pre[maxn]; // xây dựng đường đi ngắn nhất
+// thêm biến t để xây dựng đường đi
+void dijkstra(int s, int t){
+    // Mảng lưu khoảng cách đường đi
+    vector<ll> d(n + 1, INF); // khởi tạo tất cả ptu là INF
+    // ptu nguồn thì gán = 0
+    d[s] = 0;
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> Q;
+    //{khoảng cách, đỉnh} mục tiêu của tạo hàng đợi ưu tiên
+    Q.push({0, s});
+    while (!Q.empty()){
+        // chọn ra đỉnh có khoảng cách từ s nhỏ nhất
+        pair<int, int> top = Q.top(); Q.pop();
+        int u = top.second;
+        int kc = top.first;
+        if (u == t) {
+            // Nếu đến được đỉnh t, in độ dài đường đi ngắn nhất và kết thúc hàm
+            cout << d[u] << endl;
+            return;
+        }
+        if(kc > d[u]) continue;
+        // Relaxation: cập nhật khoảng cách từ s cho tới mọi đỉnh kề với u
+        for(auto it : adj[u]){
+            int v = it.first;
+            int w = it.second;
+            if(d[v] > d[u] + w){
+                d[v] = d[u] + w;
+                Q.push({d[v], v});
             }
-        cout << pq1.top() << " ";
+        }
+    }
+    // Nếu không tìm thấy đường đi từ s đến t, in ra -1
+    cout << -1 << endl;
+}
+
+void nhap(){
+    cin >> n >> m >> q;
+    for(int i = 0; i < m; i++){
+        int x, y, w; cin >> x >> y >> w;
+        adj[x].push_back({y, w});
+        //adj[y].push_back({x, w});
+    }
+}
+
+void sol() {
+    nhap();
+    for(int i = 0; i < q; i++) {
+        int s, t;
+        cin >> s >> t;
+        dijkstra(s, t);
     }
 }
 

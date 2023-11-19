@@ -16,25 +16,19 @@ void runtime(){
 }
 
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
+    int t; cin >> t;
+    while (t--) {
+        int n; cin >> n;
+        //int sum = 1; 
+        // for (int i = 2; i <= n; ++i) {
+        //     // Số ô của lớp thứ i là (i-1)*6
+        //     sum += (i - 1) * 6;
+        // }
+
+        // Số ô của tổ ong là 1 + 6 * (n * (n - 1)) / 2
+        cout << 1 + 3 * n * (n - 1) << endl;
     }
+    
 }
 
 main(){

@@ -15,25 +15,38 @@ void runtime(){
     #endif
 }
 
+bool isNumberSequence(string s, string &start) {
+    if (s.size() == 1 || s[0] == '0') return false;
+    int n = 0;
+    bool isSequence = 0;
+    for (int i = 0; i < s.length()/2; i++){
+        n = n * 10 + (s[i] - '0');
+        string t = to_string(n);
+        int d = n + 1;
+        while (t.size() < s.size()){
+            t+=to_string(d);
+            d++;
+        }
+        if (t.size() != s.size()) continue;
+        else if (t == s){
+            isSequence=true;
+            break;
+        }
+    }
+    start = to_string(n);
+    if(!isSequence) return false;
+    else return true;
+}
+
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
+    int t;
+    cin >> t;
+    while (t--){
+        string s;
+        cin >> s;
+        string x = "";
+        if(isNumberSequence(s, x)) cout << "YES " << x << endl;
+        else cout << "NO" << endl;
     }
 }
 

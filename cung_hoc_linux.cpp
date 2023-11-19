@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 #define endl "\n"
-#define int long
-#define long long long
 const int MOD = (int)1e9 + 7;
 const int limit = 1000001;
 using namespace std;
@@ -15,26 +13,44 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
+string simplifyPath(string path) {
+    stringstream ss(path);
+    string token;
+    stack<string> stk;
+
+    while (getline(ss, token, '/')) {
+        if (token == "" || token == ".") {
+            // Do nothing for empty tokens or current directory reference
+            continue;
+        } else if (token == "..") {
+            // Move up one directory level
+            if (!stk.empty()) {
+                stk.pop();
             }
-        cout << pq1.top() << " ";
+        } else {
+            // Push valid directory/file to stack
+            stk.push(token);
+        }
     }
+
+    // Reconstruct the simplified path
+    vector<string> v;
+    while (!stk.empty()) {
+        v.push_back(stk.top());
+        stk.pop();
+    }
+
+    string result = "";
+    for (auto it = v.rbegin(); it != v.rend(); ++it) {
+        result += "/" + *it;
+    }
+
+    return result.empty() ? "/" : result;
+}
+
+void sol() {
+    string s; cin >> s;
+    cout << simplifyPath(s);
 }
 
 main(){

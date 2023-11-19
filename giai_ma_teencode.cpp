@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 #define endl "\n"
-#define int long
-#define long long long
 const int MOD = (int)1e9 + 7;
 const int limit = 1000001;
 using namespace std;
@@ -15,26 +13,35 @@ void runtime(){
     #endif
 }
 
+void to_lower(string &s) {
+	for(char &x:s) {
+		if(x >= 'A' && x <= 'Z') {
+            x = char(x+32);
+        }
+	}
+}
+
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
+    int n; 
     cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
-    }
+    cin.ignore();
+    string s; 
+    getline(cin,s); 
+    to_lower(s);
+    multimap<string,int> mp;
+    while(n--) {
+    	string str; 
+        getline(cin,str);
+    	stringstream ss(str);
+    	string word, temp = "";
+    	while(ss >> word) temp.push_back(word[0]);
+		to_lower(temp);
+		if(strcmp(temp.data(),s.data()) == 0) {
+            mp.insert(pair<string,int>(str, 1));
+        }
+	}
+	cout << mp.size() << endl;
+	for(auto x:mp) cout << x.first << endl;
 }
 
 main(){

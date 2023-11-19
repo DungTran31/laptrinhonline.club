@@ -16,25 +16,24 @@ void runtime(){
 }
 
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
+    int a, b, c;
+    cin >> a >> b >> c;
+
+    vector<string> numbers = {to_string(a), to_string(b), to_string(c)};
+
+    // Sắp xếp chuỗi theo thứ tự giảm dần
+    // VD: x = "48", y="7" so sánh (x+y) = "487" và (y+x) = "748"
+    sort(numbers.begin(), numbers.end(), [](const string& x, const string& y) {
+        return (x + y) > (y + x);
+    });
+
+    // Ghép các chuỗi đã sắp xếp
+    stringstream result;
+    for (string num : numbers) {
+        result << num;
     }
+
+    cout << result.str() << endl;
 }
 
 main(){

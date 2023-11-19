@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 #define endl "\n"
-#define int long
-#define long long long
 const int MOD = (int)1e9 + 7;
 const int limit = 1000001;
 using namespace std;
@@ -15,26 +13,18 @@ void runtime(){
     #endif
 }
 
+
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
+    int n, m, k;
+    cin >> n >> m >> k;
+    int cards_per_player = n / k;
+    if(m <= cards_per_player) { cout << m;}
+    else {
+        cout << cards_per_player - ((m - cards_per_player) + (k - 2)) / (k - 1);
     }
+
+
+
 }
 
 main(){

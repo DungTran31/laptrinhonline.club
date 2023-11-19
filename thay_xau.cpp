@@ -16,24 +16,42 @@ void runtime(){
 }
 
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
+    string x;
+    cin >> x;
+
+    int n = x.size();
+    int q;
+    cin >> q;
+
+    char convert_char[26];
+    for (char i = 'a'; i <= 'z'; ++i) {
+        convert_char[i-'a'] = i;
+    }
+
+    while (q--) {
+        char c;
+        cin >> c;
+        if (c == 'R') {
+            char a, b;
+            cin >> a >> b;
+            for(int i = 0; i < 26; i++){
+                if(convert_char[i] == a)
+                    convert_char[i] = b;
             }
-        cout << pq1.top() << " ";
+        } else if (c == 'D') {
+            char a;
+            cin >> a;
+            for(int i = 0; i < 26; i++){
+                if(convert_char[i] == a)
+                    convert_char[i] = '#';
+            }
+        }
+    }
+
+    for (int i = 0; i < n; i++) {
+        if (convert_char[x[i]-'a'] != '#') {
+            cout << convert_char[x[i]-'a'];
+        }
     }
 }
 

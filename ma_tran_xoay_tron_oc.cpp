@@ -16,24 +16,45 @@ void runtime(){
 }
 
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
+    int n; cin >> n;
+    int a[n][n], cnt = 1;
+    int h1 = 0, h2 = n - 1, c1 = 0, c2 = n-1;
+    while (h1<=h2 && c1 <= c2)
+    {
+        for (int i = c1; i <= c2; i++)
+        {
+            a[h1][i] = cnt;
+            ++cnt;
+        }
+        ++h1;
+        for (int i = h1; i <= h2; i++)
+        {
+            a[i][c2] = cnt;
+            ++cnt;
+        }
+        --c2;
+        if(c1<=c2){
+            for (int i = c2; i >= c1; i--)
+            {
+                a[h2][i] = cnt;
+                ++cnt;
             }
-        cout << pq1.top() << " ";
+            --h2;
+        }
+        if(h1<=h2){
+            for(int i = h2; i>=h1;i--){
+                a[i][c1]=cnt;
+                ++cnt;
+            }
+            ++c1;
+        }
+    }
+    for (int i = 0; i < n; i++){
+        for (int j = 0; j < n; j++)
+        {
+            cout << a[i][j] << "\t";
+        }
+        cout << endl;
     }
 }
 

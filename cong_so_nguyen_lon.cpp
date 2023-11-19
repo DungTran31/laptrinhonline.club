@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 #define endl "\n"
-#define int long
-#define long long long
 const int MOD = (int)1e9 + 7;
 const int limit = 1000001;
 using namespace std;
@@ -15,26 +13,33 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
+string add(string a, string b) {
+    string res = "";
+    int nho = 0;
+
+    // Đảm bảo cả hai chuỗi có chiều dài bằng nhau
+    while(a.length() < b.length()) a = '0' + a;
+    while(a.length() > b.length()) b = '0' + b;
+
+    for (int i = a.length() - 1; i >= 0; i--) {
+        int digitA = a[i] - '0';
+        int digitB = b[i] - '0';
+        int sum = digitA + digitB + nho;
+        nho = sum / 10;
+        res = (char)(sum % 10 + '0') + res;
     }
+
+    if (nho > 0) {
+        return char(nho +'0') + res; // Trong trường hợp khi chạy xong mà vẫn còn số nhớ thì cộng thêm
+    }
+
+    return res;
+}
+
+void sol() {
+    string a, b;
+    cin >> a >> b;
+    cout << add(a,b);
 }
 
 main(){

@@ -16,25 +16,30 @@ void runtime(){
 }
 
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
+    int n;
     cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
+
+    vector<int> colors(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> colors[i];
     }
+
+    // Đếm số lượng màu xuất hiện nhiều nhất
+    int maxCount = 0;
+    for (int i = 0; i < n; ++i) {
+        int cnt = 1;
+        int j = i;
+        // Đếm số lượng cây bút chì giống nhau liên tiếp từ trái sang phải
+        while (j + 1 < n && colors[j] == colors[j + 1]) {
+            cnt++;
+            j++;
+        }
+        maxCount = max(maxCount, cnt);
+    }
+
+    // Kết quả là tổng số cây bút chì trừ đi số lượng màu xuất hiện nhiều nhất
+    int res = n - maxCount;
+    cout << res << endl;
 }
 
 main(){

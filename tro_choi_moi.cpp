@@ -15,26 +15,41 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
+int countOnes(vector<int> a) {
+    int cnt = 0;
+    for (int i = 0; i < a.size(); ++i) {
+        if (a[i] == 1) {
+            cnt++;
+        }
     }
+    return cnt;
+}
+
+void sol() {
+    int n;
+    cin >> n;
+    vector<int> a(n), b(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+        b[i] = a[i];
+    }
+
+    int maxOnes = 0;
+    for (int i = 0; i < n; ++i) {
+        int cnt = 0;
+        for (int j = i; j < n; ++j) {
+            if (a[j] == 1) {
+                a[j] = 0;
+            } else {
+                a[j] = 1;
+            }
+            cnt = countOnes(a);
+            maxOnes = max(maxOnes, cnt);
+        }
+        a = b;
+    }
+
+    cout << maxOnes << endl;
 }
 
 main(){

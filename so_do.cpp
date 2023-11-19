@@ -16,25 +16,17 @@ void runtime(){
 }
 
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
-    }
+    int t; cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        if (n==0||n==1) cout << 1;
+        else if (n==2) cout << 2;
+        else if (n==3||n==4) cout << 6;
+        else if (n==5) cout << 3;
+        else if (n>5) cout << 9;
+        cout << endl;
+    } 
 }
 
 main(){

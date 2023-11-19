@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
 #define endl "\n"
-#define int long
-#define long long long
 const int MOD = (int)1e9 + 7;
 const int limit = 1000001;
 using namespace std;
@@ -15,26 +13,56 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
+// Hàm tính định thức ma trận
+double tinhD(double a[][101], int n) {
+    int i, j, k, dem = 0, kt = 0;
+    double b[101], c[101], h, det = 1;
+
+    for (i = 0; i < n - 1; i++) {
+        if (a[i][i] == 0) {
+            for (j = 0; j < n; j++) {
+                if (a[i][j] != 0) {
+                    for (k = 0; k < n; k++) {
+                        c[k] = a[k][i];
+                        a[k][i] = a[k][j];
+                        a[k][j] = c[k];
+                    }
+                    dem++;
+                    kt++;
+                    break;
+                }
             }
-        cout << pq1.top() << " ";
+            if (kt == 0) return 0;
+        }
+
+        b[i] = a[i][i];
+        for (j = 0; j < n; j++) a[i][j] = a[i][j] / b[i];
+
+        for (j = i + 1; j < n; j++) {
+            h = a[j][i];
+            for (k = 0; k < n; k++) a[j][k] = a[j][k] - h * a[i][k];
+        }
     }
+
+    b[n - 1] = a[n - 1][n - 1];
+    for (i = 0; i < n; i++) det *= b[i];
+
+    if (dem % 2 == 0) return det;
+    else return -det;
+}
+
+void sol() {
+    double a[101][101];
+    int n, i, j;
+    cin >> n;
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            cin >> a[i][j];
+        }
+    }
+
+    cout << fixed << setprecision(2) << tinhD(a, n) << endl;
 }
 
 main(){

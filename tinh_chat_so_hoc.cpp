@@ -14,27 +14,59 @@ void runtime(){
         fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
+/*
+// Hàm tính a^b % MOD
+int pow_mod(int a, int b) {
+    int result = 1;
+    while (b > 0) {
+        if (b % 2 == 1) {
+            result = (result * 1LL * a) % MOD;
+        }
+        a = (a * 1LL * a) % MOD;
+        b /= 2;
+    }
+    return result;
+}
+
+// Hàm tính a/b % MOD
+int div_mod(int a, int b) {
+    // Tìm nghịch đảo của b theo modulo MOD
+    int b_inverse = pow_mod(b, MOD - 2);
+
+    // Tính a * nghịch đảo của b % MOD
+    return (a * 1LL * b_inverse) % MOD;
+}
+*/
+
+// cách 2
+int pow_mod(int a,int b){   // a^b
+    if (b==0) return 1;       //a^0 = 1
+    if (b==1) return a % MOD;   //a^1 = a
+    int temp = pow_mod(a, b/2);  //tính a^(b/2)
+    return temp * temp % MOD * pow_mod(a, b % 2) % MOD;
+}
+
+int div_mod(int a,int b){   // a/b
+    return a * pow_mod(b, MOD-2) % MOD;
+}
 
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
-    cin >> n;
+    // int x, n; cin >> x >> n;
+    // int res = 1;
+    // for(int i=1;i<=n;i++){
+    //     res = res * (x+i) % MOD;  // (x+1)*(x+2)...(x+n)
+    //     res /= i;             // 1*2*3*...*n = n!
+    // }
+    // cout << res % MOD;
+    
+    int x, n; cin >> x >> n;
+    x = (x + MOD * MOD) % MOD;
+    int res = 1;
     for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
+        res = res * (x % MOD + i) % MOD;    // (x+1)*(x+2)...(x+n)
+        res = div_mod(res, i);         // 1*2*3*...*n = n!
     }
+    cout << res % MOD;
 }
 
 main(){

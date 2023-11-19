@@ -16,24 +16,42 @@ void runtime(){
 }
 
 void sol() {
-    priority_queue<int> pq1;
-    priority_queue<int, vector<int>, greater<int>>pq2;
-    int n, x;
+    /*
+    int n; cin >> n;
+	int x;
+	int d[2 * n] = {};
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> x;
+			d[i - j + n] += x;
+		}
+	}
+	for (int i = 1; i <= 2 * n - 1; i++)
+		cout << d[i] << endl;
+    */
+    int n;
     cin >> n;
-    for(int i = 1; i <= n; i++){
-        cin >> x;
-        if(i % 2 == 1) pq1.push(x);
-        else pq2.push(x);
-        if(!pq2.empty())
-            if(pq1.top() > pq2.top()){
-                int u = pq1.top();
-                int v = pq2.top();
-                pq1.pop();
-                pq2.pop();
-                pq1.push(v);
-                pq2.push(u);
-            }
-        cout << pq1.top() << " ";
+
+    vector<vector<int>> a(n, vector<int>(n));
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+            cin >> a[i][j];
+
+    // Tính tổng các số trên đường chéo
+    for (int i = n-1; i >= 0; i--) {
+        int sum = 0;
+        for (int j = 0; j < n - i; j++) {
+            sum += a[j][i + j];
+        }
+        cout << sum << endl;
+    }
+
+    for (int i = 1; i < n; i++) {
+        int sum = 0;
+        for (int j = 0; j < n - i; j++) {
+            sum += a[i + j][j];
+        }
+        cout << sum << endl;
     }
 }
 
