@@ -11,12 +11,29 @@ using namespace std;
 
 void runtime(){
     #ifndef ONLINE_JUDGE
-        cerr << ">> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
+        fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
 
 void sol() {
-    
+    int n;
+    scanf("%d",&n);
+    char x[100];
+    sprintf(x,"%2d x %d = %d",10,n,n*10);
+    int m=strlen(x);    
+    printf("%c",201);
+    for(int i=1;i<=m;i++) printf("%c",205);
+    printf("%c\n",187);
+    for(int i=1;i<=10;i++)
+    {
+        int k=(int)log10(i*n),m=(int)log10(n*10);
+        printf("%c%2d x %d = %d",186,i,n,i*n);
+        if(k==m) printf("%c\n",186);
+        else printf(" %c\n",186);
+    }
+    printf("%c",200);
+    for(int i=1;i<=m;i++) printf("%c",205);
+    printf("%c\n",188); 
 }
 
 main(){

@@ -3,7 +3,6 @@
 #define int long
 #define long long long
 const int MOD = (int)1e9 + 7;
-const int limit = 1000001;
 using namespace std;
 #ifndef ONLINE_JUDGE
     clock_t tStart = clock();
@@ -11,12 +10,81 @@ using namespace std;
 
 void runtime(){
     #ifndef ONLINE_JUDGE
-        cerr << ">> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
+        fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
 
+int minButtonPress(int n, int m) {
+    vector<int> dist(10001, -1); // Khởi tạo mảng lưu số lần nhấn các số từ 1 đến 10000
+    queue<int> q;
+    q.push(n);
+    dist[n] = 0;
+
+    while (!q.empty()) {
+        int current = q.front();
+        q.pop();
+
+        if (current == m) {
+            return dist[current];
+        }
+
+        // Nút màu xanh (trừ 1)
+        if (current - 1 >= 1 && dist[current - 1] == -1) {
+            q.push(current - 1);
+            dist[current - 1] = dist[current] + 1;
+        }
+
+        // Nút màu đỏ (nhân 2)
+        if (current * 2 <= 10000 && dist[current * 2] == -1) {
+            q.push(current * 2);
+            dist[current * 2] = dist[current] + 1;
+        }
+    }
+
+    return -1; // Trả về -1 nếu không tìm thấy kết quả
+}
+
 void sol() {
-    
+    int n, m; cin >> n >> m;
+    int res = minButtonPress(n, m);
+    cout << res << endl;
+    /*
+    int m,n;
+    cin>>n>>m;
+    if(n>=m) cout<<n-m;
+    else{
+        int cnt=0;
+        while(m>n){
+            if(m%2==0)
+                while(m%2==0){
+                    m/=2;
+                    cnt++;
+                    if(m<=n) break;
+                }
+            else{
+                cnt++;
+                m++;
+                while(m%2==0){
+                    m/=2;
+                    cnt++;
+                    if(m<=n) break;
+                }
+            }
+        }
+        cout<<cnt+n-m;
+    }
+
+    int x,y;
+    scanf("%d %d",&x,&y);
+
+    int solve=0;
+    while(x!=y){
+        if(x>y||y%2!=0) y+=1;
+        else y/=2;
+        ++solve;
+    }
+    printf("%d",solve);
+    */
 }
 
 main(){

@@ -1,9 +1,7 @@
 #include <bits/stdc++.h>
 #define endl "\n"
-#define int long
-#define long long long
-const int MOD = (int)1e9 + 7;
-const int limit = 1000001;
+#define ull unsigned long long
+const int MOD = 1000000007;
 using namespace std;
 #ifndef ONLINE_JUDGE
     clock_t tStart = clock();
@@ -11,12 +9,49 @@ using namespace std;
 
 void runtime(){
     #ifndef ONLINE_JUDGE
-        cerr << ">> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
+        fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
 
+// Hàm tính (x * y) % MOD
+ull multiplyMod(ull x, ull y) {
+    x %= MOD;
+    y %= MOD;
+    return (x * y) % MOD;
+}
+
+// Hàm tính a^b % MOD với a và b là chuỗi
+ull powerMod(string a, string b) {
+    ull base = 0;
+    for (char digit : a) {
+        base = (base * 10 + (digit - '0')) % MOD;
+    }
+
+    ull exp = 0;
+    for (char digit : b) {
+        exp = (exp * 10 + (digit - '0')) % (MOD - 1); // Phần mũ MOD - 1 vì tính chất của modulo
+    }
+
+    ull res = 1;
+    while (exp > 0) {
+        if (exp % 2 == 1) {
+            res = multiplyMod(res, base);
+        }
+        base = multiplyMod(base, base);
+        exp /= 2;
+    }
+
+    return res;
+}
+
 void sol() {
-    
+    int t; cin >> t;
+    while (t--){
+        string a, b; cin >> a >> b;
+        
+        ull res = powerMod(a, b);
+        cout << res << endl;
+    }
 }
 
 main(){

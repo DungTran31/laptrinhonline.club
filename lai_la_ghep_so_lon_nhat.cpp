@@ -11,12 +11,32 @@ using namespace std;
 
 void runtime(){
     #ifndef ONLINE_JUDGE
-        cerr << ">> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
+        fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
 
 void sol() {
-    
+    int n;
+    cin >> n;
+
+    vector<string> numbers;
+    for (int i = 0; i < n; ++i) {
+        string s; cin >> s;
+        numbers.push_back(s);
+    }
+    // Sắp xếp chuỗi theo thứ tự giảm dần
+    // VD: x = "48", y="7" so sánh (x+y) = "487" và (y+x) = "748"
+    sort(numbers.begin(), numbers.end(), [](const string& x, const string& y) {
+        return (x + y) > (y + x);
+    });
+
+    // Ghép các chuỗi đã sắp xếp
+    stringstream result;
+    for (string num : numbers) {
+        result << num;
+    }
+
+    cout << result.str() << endl;
 }
 
 main(){

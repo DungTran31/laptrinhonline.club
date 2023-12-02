@@ -17,3 +17,15 @@ int main() {
 
     return 0;
 }
+
+/*
+#include<stdio.h>
+#include<iostream>
+using namespace std;
+main(){
+	int n;
+	cin>>n;
+	int s=((n*(n+1))/2)*3-n;
+	cout<<s;
+}
+*/

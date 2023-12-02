@@ -3,7 +3,6 @@
 #define int long
 #define long long long
 const int MOD = (int)1e9 + 7;
-const int limit = 1000001;
 using namespace std;
 #ifndef ONLINE_JUDGE
     clock_t tStart = clock();
@@ -11,12 +10,46 @@ using namespace std;
 
 void runtime(){
     #ifndef ONLINE_JUDGE
-        cerr << ">> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
+        fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
 
+unordered_map<int, int> mp;
+
+int get(int x) {
+    int cnt = -1;
+    while (x) {
+        x /= 2;
+        ++cnt;
+    }
+    return cnt;
+}
+
+int solve(int n) {
+    if (n == 0 || n == -1) return 0;
+
+    int k = get(n);
+    if (n == ((1LL << k) - 1)) {
+        if (mp.count(n)) return mp[n];
+        return mp[n] = n / 2 + 2 * solve(n / 2);
+    }
+
+    int m = (1LL << k) - 1;
+    if (m <= n) {
+        if (!mp.count(m)) mp[m] = solve(m);
+        if (!mp.count(n - m - 1)) mp[n - m - 1] = solve(n - m - 1);
+        return mp[m] + mp[n - m - 1] + (n - m);
+    }
+
+    return 0;
+}
+
 void sol() {
-    
+    int n;
+    cin >> n;
+
+    int result = solve(n);
+    cout << result << endl;
 }
 
 main(){

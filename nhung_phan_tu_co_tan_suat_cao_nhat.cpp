@@ -3,7 +3,6 @@
 #define int long
 #define long long long
 const int MOD = (int)1e9 + 7;
-const int limit = 1000001;
 using namespace std;
 #ifndef ONLINE_JUDGE
     clock_t tStart = clock();
@@ -11,12 +10,37 @@ using namespace std;
 
 void runtime(){
     #ifndef ONLINE_JUDGE
-        cerr << ">> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
+        fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
 
+
 void sol() {
-    
+    int n;
+    cin >> n;
+
+    unordered_map<int, int> freq;
+    int maxFreq = 0;
+
+    for (int i = 0; i < n; ++i) {
+        int num;
+        cin >> num;
+        freq[num]++;
+        maxFreq = max(maxFreq, freq[num]);
+    }
+
+    vector<int> result;
+    for (auto &it : freq) {
+        if (it.second == maxFreq) {
+            result.push_back(it.first);
+        }
+    }
+    sort(result.begin(), result.end());
+    cout << maxFreq << endl;
+    for (int i = 0; i < result.size(); ++i) {
+        cout << result[i] << " ";
+    }
+    cout << endl;
 }
 
 main(){

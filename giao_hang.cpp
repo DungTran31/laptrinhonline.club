@@ -11,12 +11,49 @@ using namespace std;
 
 void runtime(){
     #ifndef ONLINE_JUDGE
-        cerr << ">> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
+        fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
 
-void sol() {
+struct Item {
+    int deadline;
+    int reward;
+};
+
+bool sortByReward(const Item &a, const Item &b) {
+    return a.reward > b.reward;
+}
+
+int maxReward(vector<Item>& items) {
+    sort(items.begin(), items.end(), sortByReward);
     
+    vector<bool> slot(items.size(), false);
+    
+    int maxReward = 0;
+    for (int i = 0; i < items.size(); ++i) {
+        for (int j = min(items[i].deadline, (int)items.size()) - 1; j >= 0; --j) {
+            if (!slot[j]) {
+                slot[j] = true;
+                maxReward += items[i].reward;
+                break;
+            }
+        }
+    }
+    
+    return maxReward;
+}
+
+void sol() {
+    int n;
+    cin >> n;
+    
+    vector<Item> items(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> items[i].deadline >> items[i].reward;
+    }
+    
+    int result = maxReward(items);
+    cout << result << endl;
 }
 
 main(){

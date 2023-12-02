@@ -11,12 +11,27 @@ using namespace std;
 
 void runtime(){
     #ifndef ONLINE_JUDGE
-        cerr << ">> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
+        cerr << "\n>> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
     #endif
 }
 
+int mul_mod(int a,int b){
+    if(b==0)return 0;
+    return  mul_mod(a,b/2)*2 %MOD + (b%2==0?0:a) %MOD;
+}
+int pow_mod(int a,int b){
+    if(b==0)return 1;
+    int temp = pow_mod(a,b/2);
+    return mul_mod(mul_mod(temp,temp) %MOD , (b%2==0?1:a)) %MOD;
+}
+
 void sol() {
-    
+    int N, L;
+    cin >> N >> L;
+    L %= MOD;
+
+    int res = (L * L) % MOD * (pow_mod(4, N + 1) % MOD - 1) % MOD * (pow_mod(3, MOD - 2) % MOD) % MOD;
+    cout << res;
 }
 
 main(){

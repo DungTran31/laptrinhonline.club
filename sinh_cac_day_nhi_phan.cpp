@@ -43,4 +43,14 @@ void backtrack(string str,int n){
 main(){
 	int n;cin>>n;
 	backtrack("",n);
+    /*
+    int n;
+    cin >> n;
+    for (int i=0; i<(1<<n); i++){
+        bitset<12> x(i);
+        string z = x.to_string();
+        cout << z.substr(12-n) << "\n";
+    }
+    */
 }
+

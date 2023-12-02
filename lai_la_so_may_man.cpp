@@ -11,12 +11,43 @@ using namespace std;
 
 void runtime(){
     #ifndef ONLINE_JUDGE
-        cerr << ">> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
+        fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
 
+
+int n, res = LLONG_MAX; 
+
+void Try(int SMM) {
+    if (SMM >= n) { 
+        int cnt = 0;
+        int tmp = SMM;
+        while (tmp) {
+            if (tmp % 10 == 4)
+                cnt++;
+            else
+                cnt--;
+            tmp /= 10;
+        }
+        if (cnt == 0) {
+            res = min(res, SMM); // Cập nhật giá trị nhỏ nhất cho res
+            return;
+        }
+    }
+    if (SMM > LLONG_MAX / 10) // Kiểm tra tràn số
+        return;
+    Try(SMM * 10 + 4);
+    Try(SMM * 10 + 7);
+}
+
+
 void sol() {
-    
+    cin >> n;
+    Try(0);
+    if (res == LLONG_MAX)
+        cout << -1; // Nếu không tìm thấy số siêu may mắn
+    else
+        cout << res;
 }
 
 main(){

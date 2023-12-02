@@ -3,7 +3,6 @@
 #define int long
 #define long long long
 const int MOD = (int)1e9 + 7;
-const int limit = 1000001;
 using namespace std;
 #ifndef ONLINE_JUDGE
     clock_t tStart = clock();
@@ -11,12 +10,41 @@ using namespace std;
 
 void runtime(){
     #ifndef ONLINE_JUDGE
-        cerr << ">> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
+        fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
 
+int solve(int a[], int n) {
+    map<int, int> freq;
+    int res = 0;
+    for (int i = 0; i < n; i++) {
+        res += freq[a[i]];
+        freq[a[i]]++;
+    }
+
+    return res;
+}
+
 void sol() {
-    
+    int n; cin >> n;
+    int a[n]; 
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+    }
+    int pairs = solve(a, n);
+    cout << pairs;
+    /*
+    int a[100005] = {}, n, x;
+    cin >> n;
+    while (n--){
+        cin >> x;
+        a[x]++;
+    }
+    int s = 0;
+    for (int i = 0; i <= 1e5; i++) s += a[i]*(a[i]-1)/2;
+    cout << s;
+    */
 }
 
 main(){

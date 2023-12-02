@@ -11,12 +11,45 @@ using namespace std;
 
 void runtime(){
     #ifndef ONLINE_JUDGE
-        cerr << ">> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
+        fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
 
+struct Package {
+    int deadline;
+    int reward;
+};
+
+bool compare(Package &a, Package&b){
+    if (a.deadline < b.deadline)
+        return 1;
+    if (a.deadline == b.deadline)
+        return a.reward < b.reward;
+    return 0;
+}
 void sol() {
-    
+    int n;
+    cin >> n;
+    Package a[n+5];
+    priority_queue<int> pq;
+    int d = n-1, res = 0;
+    for (int i = 0; i < n; i++) {
+        cin >> a[i].deadline >> a[i].reward;
+    }
+    sort(a, a + n, compare);
+
+    while(n > 0){
+        while (d >= 0 && a[d].deadline >= n){
+            pq.push(a[d].reward);
+            d--;
+        }
+        if(!pq.empty()){
+            res += pq.top();
+            pq.pop();
+        }
+        n--;
+    }
+    cout << res;
 }
 
 main(){

@@ -3,7 +3,6 @@
 #define int long
 #define long long long
 const int MOD = (int)1e9 + 7;
-const int limit = 1000001;
 using namespace std;
 #ifndef ONLINE_JUDGE
     clock_t tStart = clock();
@@ -11,12 +10,56 @@ using namespace std;
 
 void runtime(){
     #ifndef ONLINE_JUDGE
-        cerr << ">> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
+        fprintf(stderr, ">> Runtime: %.10fs\n", (double) (clock() - tStart) / CLOCKS_PER_SEC);
     #endif
 }
 
+int bfs(int n, int k, vector<int> moves, int start, int end) {
+    vector<bool> visited(n + 1, false);
+    vector<int> steps(n + 1, -1);
+    queue<int> q;
+
+    q.push(start);
+    steps[start] = 0;
+    visited[start] = true;
+
+    while (!q.empty()) {
+        int current = q.front();
+        q.pop();
+
+        for (int move : moves) {
+            int next = current + move;
+
+            if (next >= 1 && next <= n && !visited[next]) {
+                visited[next] = true;
+                steps[next] = steps[current] + 1;
+                q.push(next);
+            }
+        }
+    }
+
+    return steps[end];
+}
+
 void sol() {
-    
+    int n, k;
+    cin >> n >> k;
+
+    vector<int> moves(k);
+    for (int i = 0; i < k; i++) {
+        cin >> moves[i];
+    }
+
+    int start, end;
+    cin >> start >> end;
+
+    int minSteps = bfs(n, k, moves, start, end);
+
+    if (minSteps == -1) {
+        cout << "-1";
+    } else {
+        cout << minSteps;
+    }
 }
 
 main(){
