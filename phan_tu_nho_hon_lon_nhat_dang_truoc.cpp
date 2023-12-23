@@ -15,22 +15,45 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
-
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
+struct node {
+    int elem, num;
+    node *L, *R;
+    node(int x) {
+        elem = x;
+        num = 1;
+        L = R = nullptr;
     }
+};
 
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
-        }
+void update(node *&H, int x) {
+    if (!H)
+        H = new node(x);
+    else if (H->elem == x)
+        H->num++;
+    else
+        update((x <= H->elem) ? H->L : H->R, x);
+}
+
+void get(node *H, int x, node *&p) {
+    if (!H)
+        return;
+    if (x <= H->elem)
+        return get(H->L, x, p);
+    get(H->R, x, p);
+    if (!p)
+        p = H;
+}
+
+void sol() {
+    int n, x; cin >> n;
+    node *H = nullptr;
+    for (int i = 1; i <= n; i++) {
+        cin >> x;
+        update(H, x);
+        node *p = nullptr;
+        get(H, x, p);
+        if (!p) cout << 0 << endl;
+        else cout << p->elem << " " << p->num << endl;
     }
 }
 

@@ -15,23 +15,28 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
+int solve(string str) {
+    int maxLength = 0;
+    int n = str.length();
 
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
-    }
-
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            if (str[i] == str[j]) {
+                int currentLength = j - i + 1; // Độ dài của xâu con
+                maxLength = max(maxLength, currentLength);
+            }
         }
     }
+
+    return maxLength;
+}
+
+void sol() {
+    string str;
+    cin >> str;
+
+    int res = solve(str);
+    cout << res << endl;
 }
 
 main(){

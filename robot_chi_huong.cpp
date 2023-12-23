@@ -15,23 +15,44 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
 
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
-    }
 
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
+// Hàm xoay hướng của robot
+string rotate(string current, char direction) {
+    // Mảng chứa các hướng theo thứ tự
+    string directions[] = {"D", "DB", "B", "TB", "T", "TN", "N", "DN"};
+    int index = 0;
+
+    // Tìm vị trí của hướng hiện tại trong mảng directions
+    for (int i = 0; i < 8; ++i) {
+        if (directions[i] == current) {
+            index = i;
+            break;
         }
     }
+
+    // Xoay trái hoặc phải
+    if (direction == 'T') {
+        index = (index + 1) % 8;  // Xoay trái
+    } else {
+        index = (index + 7) % 8;  // Xoay phải
+    }
+
+    return directions[index];  
+}
+
+void sol() {
+    string start, directions;
+    cin >> start >> directions;
+
+    string current_direction = start; 
+
+    // Xử lý từng lệnh để di chuyển robot
+    for (char dir : directions) {
+        current_direction = rotate(current_direction, dir); // Xoay hướng
+    }
+
+    cout << current_direction;
 }
 
 main(){

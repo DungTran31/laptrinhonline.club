@@ -15,23 +15,91 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
+#define N 9
 
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
-    }
-
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
+bool usedInRow(int grid[N][N], int row, int num) {
+    for (int col = 0; col < N; col++) {
+        if (grid[row][col] == num) {
+            return true;
         }
     }
+    return false;
+}
+
+bool usedInCol(int grid[N][N], int col, int num) {
+    for (int row = 0; row < N; row++) {
+        if (grid[row][col] == num) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool usedInBox(int grid[N][N], int boxStartRow, int boxStartCol, int num) {
+    for (int row = 0; row < 3; row++) {
+        for (int col = 0; col < 3; col++) {
+            if (grid[row + boxStartRow][col + boxStartCol] == num) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool isSafe(int grid[N][N], int row, int col, int num) {
+    return !usedInRow(grid, row, num) &&
+           !usedInCol(grid, col, num) &&
+           !usedInBox(grid, row - row % 3, col - col % 3, num) &&
+           grid[row][col] == 0;
+}
+
+bool findEmptyPlace(int grid[N][N], int &row, int &col) {
+    for (row = 0; row < N; row++) {
+        for (col = 0; col < N; col++) {
+            if (grid[row][col] == 0) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool solveSudoku(int grid[N][N]) {
+    int row, col;
+    if (!findEmptyPlace(grid, row, col)) {
+        return true;
+    }
+    for (int num = 1; num <= 9; num++) {
+        if (isSafe(grid, row, col, num)) {
+            grid[row][col] = num;
+            if (solveSudoku(grid)) {
+                return true;
+            }
+            grid[row][col] = 0;
+        }
+    }
+    return false;
+}
+
+void printGrid(int grid[N][N]) {
+    for (int row = 0; row < N; row++) {
+        for (int col = 0; col < N; col++) {
+            cout << grid[row][col] << " ";
+        }
+        cout << endl;
+    }
+}
+
+void sol() {
+    int grid[N][N];
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cin >> grid[i][j];
+        }
+    }
+
+    if(solveSudoku(grid)) printGrid(grid);
 }
 
 main(){

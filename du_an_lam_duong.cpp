@@ -16,22 +16,28 @@ void runtime(){
 }
 
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
+    int n, g, b;
+    cin >> n >> g >> b;
 
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
-    }
+    // Số ngày cần để hoàn thành ít nhất một nửa con đường cao tốc
+    int minDays = (n + 1) / 2;
 
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
-        }
-    }
+    // Số ngày cần để hoàn thành toàn bộ đường cao tốc
+    int totalDays = 0;
+    int cycle = g + b;
+
+    // Số lần lặp để hoàn thành ít nhất một nửa đường cao tốc
+    int cyclesNeeded = minDays / g;
+    totalDays += cyclesNeeded * cycle;
+
+    // Ngày cần thêm để hoàn thành nửa con đường còn lại
+    if (minDays % g != 0)
+        totalDays += minDays % g;
+    else
+        totalDays -= b; // Trừ b ngày xấu cuối cùng nếu không cần thiết
+
+    // Xuất kết quả
+    cout << max(totalDays, n);
 }
 
 main(){

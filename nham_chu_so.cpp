@@ -16,22 +16,23 @@ void runtime(){
 }
 
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
-
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
+    string a, b; cin >> a >> b;
+    for (int i = 0; i < a.length(); i++){
+        if(a[i] == '5') a[i] = '6';
     }
+    for (int i = 0; i < b.length(); i++){
+        if(b[i] == '5') b[i] = '6';
 
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
-        }
     }
+    cout << stoll(a) + stoll(b) << " ";
+    for (int i = 0; i < a.length(); i++){
+        if(a[i] == '6') a[i] = '5';
+    }
+    for (int i = 0; i < b.length(); i++){
+        if(b[i] == '6') b[i] = '5';
+    }
+    cout << stoll(a) + stoll(b);
+
 }
 
 main(){

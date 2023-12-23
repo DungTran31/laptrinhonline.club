@@ -15,22 +15,33 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
+void reverseGroup(vector<int>& a, int n, int k) {
+    for (int i = 0; i < n; i += k) {
+        int left = i;
+        int right = min(i + k - 1, n - 1);
 
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
+        while (left < right) {
+            swap(a[left], a[right]);
+            left++;
+            right--;
+        }
+    }
+}
+
+
+void sol() {
+    int n, k;
+    cin >> n >> k;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
     }
 
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
-        }
+    reverseGroup(a, n, k);
+
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << " ";
     }
 }
 

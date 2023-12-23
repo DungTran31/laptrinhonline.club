@@ -16,21 +16,41 @@ void runtime(){
 }
 
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
+    int n, q;
+    cin >> n >> q;
 
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
+    vector<vector<int>> a(n, vector<int>(n));
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            cin >> a[i][j];
+        }
     }
 
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
+    while (q--) {
+        int u, v;
+        cin >> u >> v;
+
+        // Tính tổng các phần tử trên đường chéo song song với đường chéo chính
+        int sum = 0;
+        for (int i = u - 1, j = v - 1; i < n && j < n; ++i, ++j) {
+            sum += a[i][j];
         }
+        for (int i = u - 1, j = v - 1; i >= 0 && j >= 0; i--, j--) {
+            if (i != u - 1 && j != v - 1) {
+                sum += a[i][j];
+            }
+        }
+        cout << sum << " ";
+
+        // Tìm giá trị nhỏ nhất trên đường chéo song song với đường chéo phụ
+        int minVal = a[u - 1][v - 1];
+        for (int i = u - 1, j = v - 1; i < n && j >= 0; i++, j--) {
+            minVal = min(minVal, a[i][j]);
+        }
+        for (int i = u - 1, j = v - 1; i >= 0 && j < n; --i, j++) {
+            minVal = min(minVal, a[i][j]);
+        }
+        cout << minVal << endl;
     }
 }
 

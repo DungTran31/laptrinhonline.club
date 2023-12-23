@@ -15,23 +15,77 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
-
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
-    }
-
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
+bool isStrictlyIncreasing(vector<int> a) {
+    for (int i = 1; i < a.size(); i++) {
+        if (a[i] <= a[i - 1]) {
+            return false;
         }
     }
+    return true;
+}
+
+bool isIncreasing(vector<int> a) {
+    for (int i = 1; i < a.size(); i++) {
+        if (a[i] < a[i - 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isStrictlyDecreasing(vector<int> a) {
+    for (int i = 1; i < a.size(); i++) {
+        if (a[i] >= a[i - 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isDecreasing(vector<int> a) {
+    for (int i = 1; i < a.size(); i++) {
+        if (a[i] > a[i - 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isEqual(vector<int> a) {
+    for (int i = 1; i < a.size(); i++) {
+        if (a[i] != a[i - 1]) {
+            return false;
+        }
+    }
+    return true;
+}
+
+string kiemTraTinhChat(vector<int> a) {
+    if (isEqual(a)) {
+        return "Day bang nhau";
+    } else if (isStrictlyIncreasing(a)) {
+        return "Day don dieu tang ngat";
+    } else if (isIncreasing(a)) {
+        return "Day don dieu tang";
+    } else if (isStrictlyDecreasing(a)) {
+        return "Day don dieu giam ngat";
+    } else if (isDecreasing(a)) {
+        return "Day don dieu giam";
+    } else {
+        return "Day khong don dieu";
+    }
+}
+
+void sol() {
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+    }
+
+    cout << kiemTraTinhChat(a) << endl;
 }
 
 main(){

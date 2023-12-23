@@ -16,22 +16,47 @@ void runtime(){
 }
 
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
-
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
-    }
-
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
+    int n;
+    cin >> n;
+    int _value;
+    vector<int> a;
+    int sum = 0;
+    for (int i = 0; i < n; ++i) {
+        int x,y;
+        cin >> x >> y;
+        _value = abs(x-y);
+        sum += _value;
+        a.push_back(_value);
+        while (a.size() >= 3 && a[a.size() - 3] <= a[a.size() - 2] && a[a.size() - 2] >= a[a.size() - 1]) {
+            int val = a[a.size() - 3] + a[a.size() - 1] - a[a.size() - 2];
+            a.pop_back();
+            a.pop_back();
+            a.pop_back();
+            a.push_back(val);
         }
     }
+    int l = 0, r = a.size() - 1;
+    int score1 = 0;
+    bool turn = 0;
+    while (l <= r) {
+        if (a[l] >= a[r]) {
+            score1 += a[l] * (turn == 1 ? -1 : 1);
+            l++;
+        } else {
+            score1 += a[r] * (turn == 1 ? -1 : 1);
+            r--;
+        }
+        turn = !turn;
+    }
+    int ans,ans2;
+    ans = (sum - score1) / 2 + score1;
+    ans2 = sum - ans;
+    ans %= MOD;
+    ans2 %= MOD;
+    cout << ans << "\n" << ans2 <<"\n";
+    if(ans > ans2) cout << "Ken";
+    else if(ans < ans2) cout << "Kun";
+    else cout << -1;
 }
 
 main(){

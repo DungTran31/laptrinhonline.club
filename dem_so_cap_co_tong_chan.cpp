@@ -15,23 +15,21 @@ void runtime(){
     #endif
 }
 
+
+
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
+    int n;
+    cin >> n;
+    int c = 0, l = 0, x = 0;
 
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
+    while(n--){
+        int x;
+        cin >> x;
+        if(x % 2 == 0) c++;
+        if(x % 2 != 0) l++;
     }
-
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
-        }
-    }
+    int res = c * (c-1) / 2 + l * (l - 1) / 2;
+    cout << res;
 }
 
 main(){

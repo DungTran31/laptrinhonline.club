@@ -3,7 +3,7 @@
 #define int long
 #define long long long
 const int MOD = (int)1e9 + 7;
-const int limit = 1000001;
+const int limit = 10001;
 using namespace std;
 #ifndef ONLINE_JUDGE
     clock_t tStart = clock();
@@ -16,21 +16,35 @@ void runtime(){
 }
 
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
-
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
-    }
-
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
+    int n;
+    cin >> n;
+    int a[n];
+    for (int &x : a) cin >> x;
+    
+    set<int> st;
+    unordered_map<int, int> check;
+    
+    st.insert(a[0]);
+    check[a[0]] = 0;
+    
+    for (int &x : a) {
+        auto it = st.lower_bound(x);
+        if (*it == x) continue;
+        
+        if (it == st.end()) {
+            check[x] = check[*(--it)];
+        } else if (it == st.begin()) {
+            check[x] = check[*it];
+        } else {
+            check[x] = check[*it];
+            check[x] = max(check[x], check[*(--it)]);
         }
+        check[x]++;
+        st.insert(x);
+    }
+    
+    for (auto x : st) {
+        cout << x << " " << check[x] << endl;
     }
 }
 

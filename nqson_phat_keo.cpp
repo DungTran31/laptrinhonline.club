@@ -16,21 +16,28 @@ void runtime(){
 }
 
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
+    int n;
+    cin >> n;
 
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
+    map<int, int> mp;
+    vector<int> a(n);
+
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+        mp[a[i]]++;
     }
 
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
+    sort(a.begin(), a.end(), [&](int a, int b) {
+        if (mp[a] == mp[b]) {
+            return a < b;
         }
+        return mp[a] < mp[b];
+    });
+
+    a.erase(unique(a.begin(), a.end()), a.end());
+
+    for (int candy : a) {
+        cout << candy << " ";
     }
 }
 

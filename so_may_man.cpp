@@ -15,22 +15,33 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
+bool isLuckyNumber(int n) {
+    string num = to_string(n);
+    if (num.find('4') != string::npos) { // Kiểm tra số có chứa số 4 không
+        return false;
+    }
+    
+    int firstDigit = num[0] - '0'; // Chữ số đầu tiên
+    int lastDigit = num[num.length() - 1] - '0'; // Chữ số cuối cùng
 
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
+    if ((firstDigit * lastDigit) % 10 == 4) { 
+        return false;
     }
 
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
+    return true;
+}
+
+void sol() {
+    int n;
+    cin >> n;
+    
+    if(isLuckyNumber(n)) {
+        string num = to_string(n);
+        int firstDigit = num[0] - '0';
+        int lastDigit = num[num.length() - 1] - '0';
+        cout << firstDigit * lastDigit;
     } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
-        }
+        cout << -1;
     }
 }
 

@@ -21,39 +21,39 @@ string Balan(string in){
     string out = "";
     stack<char> S;
     for(char c : in)
-    if('0' <= c && c <= '9')
-        out += c;
-    else if(c == '(') S.push(c);
-    else if(c == ')'){
-        while(S.top() != '('){
+        if('0' <= c && c <= '9')
+            out += c;
+        else if(c == '(') S.push(c);
+        else if(c == ')'){
+            while(S.top() != '('){
+                out += S.top();
+                S.pop();
+            }
+            S.pop(); //lấy nốt dấu '(' ra khỏi stack
+        }
+        else{ //toán tử + - * /
+            while(S.size() && UT[S.top()] >= UT[c]){
+                out += S.top();
+                S.pop();
+            }
+            S.push(c);
+        }
+        while(S.size()){
             out += S.top();
             S.pop();
         }
-        S.pop(); //lấy nốt dấu '(' ra khỏi stack
-    }
-    else{ //toán tử + - * /
-        while(S.size() && UT[S.top()] >= UT[c]){
-            out += S.top();
-            S.pop();
-        }
-        S.push(c);
-    }
-    while(S.size()){
-        out += S.top();
-        S.pop();
-    }
     return out;
 }
 
 int giatri(string out){
     stack<int> S;
     for(char c:out)
-    if('0' <= c && c <= '9') S.push(c - '0');
-    else{
-        int a = S.top(); S.pop();
-        int b = S.top(); S.pop();
-        S.push(kq(b, a, c));
-    }
+        if('0' <= c && c <= '9') S.push(c - '0');
+        else{
+            int a = S.top(); S.pop();
+            int b = S.top(); S.pop();
+            S.push(kq(b, a, c));
+        }
     return S.top();
 }
 int main(){

@@ -30,7 +30,8 @@ unsigned int c(int n, int k) {
 
 void sol(){
     int n; cin >> n;
-    cout << c(n, 3);
+    // cout << c(n, 3);
+    cout << n*(n-1)*(n-2)/6;
 }
 
 main(){

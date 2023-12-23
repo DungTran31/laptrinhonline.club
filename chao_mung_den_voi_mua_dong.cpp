@@ -15,23 +15,21 @@ void runtime(){
     #endif
 }
 
+int gcd(int a, int b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
+}
+
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
-
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
-    }
-
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
-        }
-    }
+    int a, b, c; cin >> a; cin >> b; cin >> c;
+    if (a > b && b <= c) cout << ":)";
+    else if (a < b && b >= c) cout << ":(";
+    else if (a < b && b < c && ((c-b) < (b-a))) cout << ":(";
+    else if (a < b && b < c && ((c-b) >= (b-a))) cout << ":)";
+    else if (a > b && b > c && ((b-c) < (a-b))) cout << ":)";
+    else if (a > b && b > c && ((b-c) >= (a-b))) cout << ":(";
+    else if (a == b && b < c) cout << ":)";
+    else if (a == b && b > c) cout << ":(";
 }
 
 main(){

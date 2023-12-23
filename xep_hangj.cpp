@@ -16,22 +16,57 @@ void runtime(){
 }
 
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
-
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
+    /*
+    int n;
+    cin >> n;
+    
+    vector<int> scores(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> scores[i];
     }
 
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
+    sort(scores.rbegin(), scores.rend());
+
+    int first = scores[0];
+    int second = -1;
+    int third = -1;
+
+    int firstCount = 0, secondCount = 0, thirdCount = 0;
+
+    for (int i = 0; i < n; ++i) {
+        if (scores[i] == first) {
+            firstCount++;
+        } else if (second == -1 || scores[i] == second) {
+            second = scores[i];
+            secondCount++;
+        } else if (third == -1 || scores[i] == third) {
+            third = scores[i];
+            thirdCount++;
         }
     }
+
+    cout << "1st: " << firstCount << endl;
+    cout << "2nd: " << secondCount << endl;
+    cout << "3rd: " << thirdCount << endl;
+    */
+    int n;
+    cin >> n;
+
+    map<int, int, greater<int>> mp;
+
+    for (int i = 0; i < n; ++i) {
+        int x;
+        cin >> x;
+        mp[x]++;
+    }
+
+    auto it = mp.begin();
+
+    cout << "1st: " << it->second << endl;
+    ++it;
+    cout << "2nd: " << it->second << endl;
+    ++it;
+    cout << "3rd: " << it->second << endl;
 }
 
 main(){

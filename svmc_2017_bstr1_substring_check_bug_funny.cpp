@@ -16,22 +16,22 @@ void runtime(){
 }
 
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
+    string A, B;
 
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
-    }
+    while (cin >> A >> B) {
+        bool isSubstring = false;
 
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
+        // Check if B is a substring of A
+        for (int i = 0; i <= A.length() - B.length(); i++) {
+            if (A.substr(i, B.length()) == B) {
+                isSubstring = true;
+                break;
+            }
         }
+
+        cout << (isSubstring ? 1 : 0) << endl;
     }
+
 }
 
 main(){

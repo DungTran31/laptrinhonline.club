@@ -15,23 +15,36 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
+pair<int, int> solve(vector<int> a) {
+    int minElement = INT_MAX, maxElement = INT_MIN;
+    int minIndex = -1, maxIndex = -1;
 
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
-    }
+    for (int i = 0; i < a.size(); ++i) {
+        if (a[i] < minElement) {
+            minElement = a[i];
+            minIndex = i;
 
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
+        }
+        if (a[i] > maxElement) {
+            maxElement = a[i];
+            maxIndex = i;
         }
     }
+
+    return make_pair(minIndex, maxIndex); 
+}
+
+void sol() {
+    int n;
+    cin >> n;
+    
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+    }
+
+    pair<int, int> res = solve(a);
+    cout << res.first << " " << res.second << endl; 
 }
 
 main(){

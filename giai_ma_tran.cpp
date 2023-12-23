@@ -16,21 +16,25 @@ void runtime(){
 }
 
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
-
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
-    }
-
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
+    int n; cin >> n;
+    int a[n+1][n+1];
+    for(int i = 0; i < n; i++){
+        for(int j = 0; j < n; j++) {
+            cin >> a[i][j];
         }
+    }
+    for(int i = 0; i < n; i++) {
+        for(int j = i; j < n; j++) {
+            if(a[i][j] != a[j][i]){
+                cout<< -1;
+                return;
+            }
+        }
+    }
+    int a0 = (a[0][1] + a[0][2] - a[1][2]) / 2;
+    cout << a0 <<" ";
+    for(int i = 1; i < n; i++) {
+        cout<< a[0][i]-a0 <<" ";
     }
 }
 

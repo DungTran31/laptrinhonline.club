@@ -16,22 +16,22 @@ void runtime(){
 }
 
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
+    int n;
+    cin >> n;
+    int a[n];
 
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
     }
 
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
-        }
+    sort(a, a+n);
+    int sum = 0;
+    int coeff = -1 * (n - 1);
+    for (int i = 0; i < n; ++i) {
+        sum += coeff * a[i];
+        coeff += 2;
     }
+    cout << sum;
 }
 
 main(){

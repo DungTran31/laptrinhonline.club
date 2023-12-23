@@ -15,23 +15,27 @@ void runtime(){
     #endif
 }
 
+int gcd(int a, int b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
+}
+
 void sol() {
-    int t0, sum = 0;
-    string s;
-    cin >> t0 >> s;
-
-    for (char c : s) {
-        sum += (c == '1') ? 1 : 0;
-    }
-
-    int n = s.length();
-    if (sum % 2 == 0 || (t0 % 2 == 0 && n % 2 == 0)) {
-        cout << s;
-    } else {
-        for (char c : s) {
-            cout << (c == '1' ? '0' : '1');
-        }
-    }
+    int n;
+	cin >> n;
+	double p[100005];
+	map<double,int>mp, mp1, mp2, mp3;
+	int x,y;
+	for (int i=0; i < n; ++i){
+		cin >> x >> y;
+		if (x>=0 && y>=0) mp[(double)x/y]++;
+		else if (x>=0 && y<=0) mp1[(double)x/y]++;
+		else if (x<=0 && y<=0) mp2[(double)x/y]++;
+		else mp3[(double)x/y]++;
+	}
+//	for (map<double,int>::iterator i=mp.begin(); i!=mp.end(); ++i)
+//		cout << i->first << " ";
+	cout << mp.size()+mp1.size()+mp2.size()+mp3.size();
 }
 
 main(){
