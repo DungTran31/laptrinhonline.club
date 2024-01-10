@@ -1,3 +1,4 @@
+//cho tam giac ABC va diem M , hay tim 1 diem trong tam giac gan voi M nhat (bisection)
 #include <bits/stdc++.h>
 #define endl "\n"
 #define int long
@@ -14,22 +15,55 @@ void runtime(){
         cerr << "\n>> Runtime: " << (double)clock() / CLOCKS_PER_SEC << "s\n";
     #endif
 }
+typedef pair<double,double> Diem;
+#define x first  
+#define y second
+double const eps = 1e-4;
+
+double dt(Diem A, Diem B) {
+    return A.x * B.y - A.y * B.x;
+}
+
+double S(Diem A, Diem B, Diem C) {
+    return abs(dt(A,B) + dt(B,C) + dt(C,A)) / 2;
+}
+
+double bpkc(Diem A, Diem B) {
+    return (A.x - B.x) * (A.x - B.x) + (A.y - B.y) * (A.y - B.y);
+}
+
+Diem tim(Diem A, Diem B, Diem M) {
+    while(abs(A.x - B.x) > eps or abs(A.y - B.y) > eps) {
+        Diem C = {(A.x + B.x) / 2 , (A.y + B.y) / 2};
+        bpkc(M, A) > bpkc(M, B) ? A = C : B = C;
+    }           
+    return A; // return B;
+}
 
 void sol() {
-    int q;
-    cin >> q;
-    int x, y, a, z, t, b, dis;
-    while(q--){
-        cin >> x >> y >> a >> z >> t >> b;
-        dis = abs(z-x) + abs(t-y);
-        if(a >= dis){
-            cout << 1 << endl;
-            continue;
+    // pair<double,double> A(3,4), B = A,C,D,E;
+    // cout << "\nB" << B.first << " " << B.second;
+    // C = make_pair(4,5);
+    // D = pair<double,double> (6,7);
+    // E = {1,2};
+    // cout << "\nC" << C.first << " " << C.second;
+    // cout << "\nD" << D.first << " " << D.second;
+    // cout << "\nE" << E.first << " " << E.second;
+
+    int t; cin >> t;
+    while (t--) {
+        Diem  A,B,C,M;
+        cin >> A.x >> A.y >> B.x >> B.y >> C.x >> C.y >> M.x >> M.y; 
+        if(S(A, B, C) < S(A, B, M) + S(A, C, M) + S(B, C, M)) {
+            Diem A1 = tim(B, C, M), B1 = tim(A, C, M), C1 = tim(A, B, M);
+            if(bpkc(A1, M) > bpkc(B1, M)) A1 = B1;
+            if(bpkc(A1, M) > bpkc(C1, M)) A1 = C1;
+            M = A1;                     
         }
-        if(a > b*2) cout << 1;
-        else cout << 0;
-        cout << endl;
+        cout << fixed << setprecision(3) << M.x << " " << M.y << endl;
     }
+    
+    
 }
 
 main(){

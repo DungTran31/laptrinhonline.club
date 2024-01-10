@@ -16,20 +16,23 @@ void runtime(){
 }
 
 void sol() {
-    int q;
-    cin >> q;
-    int x, y, a, z, t, b, dis;
-    while(q--){
-        cin >> x >> y >> a >> z >> t >> b;
-        dis = abs(z-x) + abs(t-y);
-        if(a >= dis){
-            cout << 1 << endl;
-            continue;
+    string a;
+    cin >> a;
+    int n = a.size();
+    string x, y;
+    int i, j;
+    for(i = n - 1; i >= 1; i--){
+        x = a.substr(0, i);
+        y = a.substr(n - i, i);
+        if(x != y) continue;
+        for(j = 1; j < n - i; j++){
+            if(x == a.substr(j, i)){
+                cout << x;
+                return;
+            }
         }
-        if(a > b*2) cout << 1;
-        else cout << 0;
-        cout << endl;
     }
+    cout << "Just a legend";
 }
 
 main(){

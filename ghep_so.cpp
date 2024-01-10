@@ -15,21 +15,76 @@ void runtime(){
     #endif
 }
 
-void sol() {
-    int q;
-    cin >> q;
-    int x, y, a, z, t, b, dis;
-    while(q--){
-        cin >> x >> y >> a >> z >> t >> b;
-        dis = abs(z-x) + abs(t-y);
-        if(a >= dis){
-            cout << 1 << endl;
-            continue;
+void Min(string a, string b){
+    int i=0,j=0;
+    string res="";
+    while(i<a.size() && j<b.size()){
+        if(a[i]<b[j]){
+            res = res + a[i];
+            i++;
         }
-        if(a > b*2) cout << 1;
-        else cout << 0;
-        cout << endl;
+        else if(a[i]>b[j]){
+            res = res + b[j];
+            j++;
+        }
+        else{
+        	res = res + a[i];
+        	if(i+1<a.size() && j+1<=a.size() && a[i+1]<b[j+1]) i++;
+        	else j++;
+		}
     }
+    while(i<a.size()){
+        res = res + a[i];
+        i++;
+    }
+    while(j<b.size()){
+        res = res + b[j];
+        j++;
+    }
+    cout << res << endl;
+}
+
+
+void Max(string a, string b){
+    int i=0,j=0;
+    string res="";
+    while(i<a.size() && j<b.size()){
+        if(a[i]<b[j]){
+            res = res + b[j];
+            j++;
+        }
+        else if(a[i]>b[j]){
+            res = res + a[i];
+            i++;
+        }
+        else{
+        	if(a[i+1]>b[j+1]){
+        		res = res + a[i];
+        		i++;
+			}
+			else{
+				res = res + b[j];
+				j++;
+			}
+		}
+
+    }
+    while(i<a.size()){
+        res = res + a[i];
+        i++;
+    }
+    while(j<b.size()){
+        res = res + b[j];
+        j++;
+    }
+    cout << res << endl;
+}
+
+void sol() {
+    string s1,s2;
+    cin >> s1 >> s2;
+    Min(s1,s2);
+    Max(s1,s2);
 }
 
 main(){

@@ -16,20 +16,16 @@ void runtime(){
 }
 
 void sol() {
-    int q;
-    cin >> q;
-    int x, y, a, z, t, b, dis;
-    while(q--){
-        cin >> x >> y >> a >> z >> t >> b;
-        dis = abs(z-x) + abs(t-y);
-        if(a >= dis){
-            cout << 1 << endl;
-            continue;
-        }
-        if(a > b*2) cout << 1;
-        else cout << 0;
-        cout << endl;
+    int n;
+    cin >> n;
+    int a[n+1];
+    a[1] = 2;
+    a[2] = 4;
+    a[3] = 7;
+    for (int i = 4; i <= n; i++) {
+        a[i] = (2 * a[i-1] - a[i-2] + a[i-3]) % MOD;
     }
+    cout << (a[n] + MOD) % MOD;
 }
 
 main(){

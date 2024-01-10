@@ -15,20 +15,37 @@ void runtime(){
     #endif
 }
 
+map<int, int> F; 
+ 
+int fib(int n) {  
+    if(F.count(n)) return F[n];  
+    int k = n / 2;  
+    if(n % 2 == 0){  // n=2*k   
+        return F[n] = (fib(k) * fib(k) + fib(k-1) * fib(k-1)) % MOD;  
+    }else{ // n=2*k+1   
+        return F[n] = (fib(k) * fib(k+1) + fib(k-1) * fib(k)) % MOD; 
+    } 
+} 
+
+int power(int x, int n) {
+    int res = 1;
+    while (n) {
+        if (n & 1)
+            res = (res * x) % MOD;
+        n = n / 2;
+        x = (x * x) % MOD;
+    }
+    return res;
+}
+
 void sol() {
-    int q;
-    cin >> q;
-    int x, y, a, z, t, b, dis;
-    while(q--){
-        cin >> x >> y >> a >> z >> t >> b;
-        dis = abs(z-x) + abs(t-y);
-        if(a >= dis){
-            cout << 1 << endl;
-            continue;
-        }
-        if(a > b*2) cout << 1;
-        else cout << 0;
-        cout << endl;
+    int t;
+    cin >> t;
+    F[0]=F[1]=1;
+    while (t--) {
+        int n;
+        cin >> n;
+        cout << (power(2, n) - fib(n + 2) + 1 + MOD) % MOD << endl;
     }
 }
 

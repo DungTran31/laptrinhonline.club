@@ -15,20 +15,38 @@ void runtime(){
     #endif
 }
 
+int x, y, g;
+
+int extended(int a, int b) {
+    if (b == 0) {
+        x = 1;
+        y = 0;
+        g = a;
+        return 0;
+    } else {
+        int res = extended(b, a % b);
+        int tmp = x;
+        x = y;
+        y = tmp - a / b * y;
+        return res;
+    }
+}
+
+void inverse(int a, int m) {
+    int res = extended(a, m);
+    if(g != 1) {
+        cout << 0 << endl;
+    } else {
+        cout << (x % m + m) % m << endl;
+    }
+}
+
 void sol() {
-    int q;
-    cin >> q;
-    int x, y, a, z, t, b, dis;
-    while(q--){
-        cin >> x >> y >> a >> z >> t >> b;
-        dis = abs(z-x) + abs(t-y);
-        if(a >= dis){
-            cout << 1 << endl;
-            continue;
-        }
-        if(a > b*2) cout << 1;
-        else cout << 0;
-        cout << endl;
+    int t; cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        inverse(n, m);
     }
 }
 

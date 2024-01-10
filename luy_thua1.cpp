@@ -15,21 +15,26 @@ void runtime(){
     #endif
 }
 
+int power(int base, int exp){
+    if(exp == 1) return base%MOD;
+    if(exp == 0) return 1;
+    int tmp = power(base, exp/2) % MOD;
+    if(exp & 1) return tmp%MOD*tmp%MOD*base%MOD;
+    else return tmp%MOD*tmp%MOD;
+}
+
 void sol() {
-    int q;
-    cin >> q;
-    int x, y, a, z, t, b, dis;
-    while(q--){
-        cin >> x >> y >> a >> z >> t >> b;
-        dis = abs(z-x) + abs(t-y);
-        if(a >= dis){
-            cout << 1 << endl;
-            continue;
-        }
-        if(a > b*2) cout << 1;
-        else cout << 0;
-        cout << endl;
+    string a, b;
+    cin >> a >> b;
+    int x = 0, y = 0;
+    for (auto c : a) {
+        x = (x * 10 + (c - '0')) % MOD;
     }
+    for (auto c : b) {
+        y = (y * 10 + (c - '0')) % (MOD-1);
+    }
+    int res = power(x, y);
+    cout << res;
 }
 
 main(){

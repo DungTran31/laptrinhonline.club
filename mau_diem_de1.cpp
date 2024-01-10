@@ -15,20 +15,59 @@ void runtime(){
     #endif
 }
 
+class Diem {
+public:
+    int x, y, color;
+};
+
+int bpkc(Diem p){
+    return p.x*p.x+p.y*p.y;
+}
+
 void sol() {
-    int q;
-    cin >> q;
-    int x, y, a, z, t, b, dis;
-    while(q--){
-        cin >> x >> y >> a >> z >> t >> b;
-        dis = abs(z-x) + abs(t-y);
-        if(a >= dis){
-            cout << 1 << endl;
-            continue;
+    int a, b, c, k, n;
+    map<int, int> cnt;
+    cin >> a >> b >> c;
+    cin >> n;
+    vector<Diem> arr(n);
+    for(int i = 0; i < n; i++){
+        cin >> arr[i].x >> arr[i].y >> arr[i].color;
+        cnt[arr[i].color]++;
+    }
+    cin >> k;
+    if(a) {
+        vector<pair<int,int>> ans;
+        for(auto i : cnt){
+            ans.push_back({i.second, i.first});
         }
-        if(a > b*2) cout << 1;
-        else cout << 0;
+        sort(ans.begin(), ans.end());
+        int tmp = ans[0].first;
+        for(auto x : ans){
+            if(x.first != tmp) {
+                break;
+            }
+            cout << x.second << " ";
+        }
         cout << endl;
+    }
+    if(b) {
+        int count = 0;
+        for(auto i : cnt){
+            if(i.second > 1){
+                count += i.second * (i.second - 1) / 2;
+            }
+        }
+        cout << count << endl;
+    }
+    if(c) {
+        int d[10+5];
+        for(int i = 0; i < 10; i++) d[i] = INT_MAX;
+        for(int i = 0; i < n; i++){
+            d[arr[i].color] = min(d[arr[i].color], bpkc(arr[i]));
+        }
+        sort(d, d+10);
+        if(d[k-1] == INT_MAX) cout << -1 << endl;
+        else cout << d[k-1] << endl;
     }
 }
 

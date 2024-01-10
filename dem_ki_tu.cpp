@@ -6,34 +6,20 @@ const int MOD = (int)1e9 + 7;
 const int limit = 1000001;
 using namespace std;
 
-main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(0);
-    cout.tie(0);
-    string s;
-    cin >> s;
-    int k;
-    cin >> k;
+main() {
+	ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+    string str; cin >> str;
+    int t; cin >> t;
+    int dem = 0;
+    while(t--)
+    {
+    	dem = 0;
+    	int a, b; cin >> a  >> b;
+    	char c ; cin.ignore(); cin >> c;
 
-    for (int i = 0; i < k; i++) {
-        int a, b;
-        char c;
-        cin >> a >> b >> c;
-
-        if (a < 1 || b > s.length() || a > b) {
-            cout << "0 ";
-            continue;
-        }
-
-        int count = 0;
-        for (int j = a - 1; j < b; j++) {
-            if (s[j] == c) {
-                count++;
-            }
-        }
-
-        cout << count << " ";
-    }
-
-    return 0;
+    	for(int i = a - 1; i <= b - 1; i++)
+            if(str[i] == c)
+                dem++;
+    	cout << dem <<' ';
+	}
 }
