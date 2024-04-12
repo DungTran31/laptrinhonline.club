@@ -42,3 +42,29 @@ int main(){
 	}
 	cout<<d[f]-1<<" ";		
 }
+
+/*
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, k, m, s, f;
+    cin >> n >> k >> m >> s >> f;
+    queue<int> Q;
+    int d[n + 5] = {};
+    Q.push(s); d[s] = 1;
+    while (Q.size() > 0) {
+        int u = Q.front();
+        Q.pop();
+        for(int v : {u+k, u - m}) {
+            if(1 <= v && v <= n && d[v] == 0) {
+                d[v] = d[u] + 1;
+                Q.push(v);
+            }
+        }
+    }
+    cout << d[f] - 1;
+    return 0;
+
+}
+*/

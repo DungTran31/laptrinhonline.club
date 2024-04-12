@@ -8,6 +8,7 @@ const int limit = 100000;
 
 int k,x;
 
+
 // tính cấp số cộng đến x
 // số hạng đầu + số hang cuối nhân với số số hạng/2
 int csc(int x){ //1+2+3+...+x
