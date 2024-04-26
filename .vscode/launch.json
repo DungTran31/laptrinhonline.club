@@ -1,0 +1,80 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "bien_kiem_soat",
+            "request": "launch",
+            "mainClass": "bien_kiem_soat",
+            "projectName": "Thuat_toan_clb_77ae0135"
+        },
+        {
+            "type": "java",
+            "name": "tong_tat_ca_cac_uoc_le_lon_nhat",
+            "request": "launch",
+            "mainClass": "tong_tat_ca_cac_uoc_le_lon_nhat",
+            "projectName": "Thuat_toan_clb_77ae0135"
+        },
+        {
+            "type": "java",
+            "name": "vi_tri_sau_khi_sap_xep",
+            "request": "launch",
+            "mainClass": "vi_tri_sau_khi_sap_xep",
+            "projectName": "Thuat_toan_clb_77ae0135"
+        },
+        {
+            "type": "java",
+            "name": "giai_thua_so_lon",
+            "request": "launch",
+            "mainClass": "giai_thua_so_lon",
+            "projectName": "Thuat_toan_clb_77ae0135"
+        },
+        {
+            "type": "java",
+            "name": "chu_cai_thieu",
+            "request": "launch",
+            "mainClass": "OLP3.chu_cai_thieu",
+            "projectName": "Thuat_toan_clb_77ae0135"
+        },
+        {
+            "type": "java",
+            "name": "dich_chuyen_quan_hau",
+            "request": "launch",
+            "mainClass": "dich_chuyen_quan_hau",
+            "projectName": "Thuat_toan_clb_77ae0135"
+        },
+        {
+            "type": "java",
+            "name": "ba_chu_so_tan_cung",
+            "request": "launch",
+            "mainClass": "ba_chu_so_tan_cung",
+            "projectName": "Thuat_toan_clb_77ae0135"
+        },
+        {
+            "name": "C/C++: g++.exe build and debug active file",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:\\MinGW\\bin\\gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C/C++: g++.exe build active file"
+        }
+    ],
+    "version": "2.0.0"
+}
